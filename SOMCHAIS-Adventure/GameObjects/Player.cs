@@ -13,8 +13,8 @@ namespace SOMCHAIS_Adventure
     {
         public Keys Left, Right, Fire, Up;
         public Bullet bullet;
-        private float jumpVelocity = -3000f;
-        private float gravity = 5000f;
+        private float jumpVelocity = -10000f;
+        private float gravity = 10000f;
         private bool isJumping = false;
 
         public Player(Texture2D texture) : base(texture)
@@ -89,6 +89,7 @@ namespace SOMCHAIS_Adventure
                 Velocity.Y = 0;
                 isJumping = false;
             }
+
 
             base.Update(gameTime, gameObjects);
         }

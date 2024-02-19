@@ -25,7 +25,11 @@ namespace SOMCHAIS_Adventure
 
         private Vector2 _position;
 
+        private Texture2D _pixel;
+
         SpriteFont _font;
+
+        private bool isPaused = false;
 
         public MainSence()
         {
@@ -56,6 +60,9 @@ namespace SOMCHAIS_Adventure
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             _font = Content.Load<SpriteFont>("GameFont");
+
+            _pixel = new Texture2D(GraphicsDevice, 1, 1);
+            _pixel.SetData(new[] { Color.White }); // Set the 
             Reset();
         }
 
@@ -82,11 +89,16 @@ namespace SOMCHAIS_Adventure
             }
 
             if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.R) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
-                _camera.Zoom -= 0.1f;
-            //ResetEnemies();
+                ResetEnemies();
 
-            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.S) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.Z) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
+                _camera.Zoom -= 0.1f;
+
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.X) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
                 _camera.Zoom += 0.1f;
+
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.P) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
+                TogglePause();
 
             Singleton.Instance.PreviousKey = Singleton.Instance.CurrentKey;
 
@@ -94,6 +106,7 @@ namespace SOMCHAIS_Adventure
 
             //if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.R) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
 
+           
 
             _camera.Update(new Vector2(Singleton.Instance.heroX,Singleton.Instance.heroY), 400, 400); 
 
@@ -114,6 +127,14 @@ namespace SOMCHAIS_Adventure
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
 
+            Rectangle platformRectangle = new Rectangle(0, 100, 100, 20);
+            _spriteBatch.Draw(_pixel, platformRectangle, Color.Yellow);
+            _spriteBatch.Draw(_pixel, new Rectangle(0, 200, 100, 20), Color.Yellow);
+            _spriteBatch.Draw(_pixel, new Rectangle(0, 300, 100, 20), Color.Yellow);
+            _spriteBatch.Draw(_pixel, new Rectangle(0, 400, 100, 20), Color.Yellow);
+            _spriteBatch.Draw(_pixel, new Rectangle(0, 500, 100, 20), Color.Yellow);
+            _spriteBatch.Draw(_pixel, new Rectangle(0, 600, 100, 20), Color.Yellow);
+
             _numObject = _gameObjects.Count;
 
             for (int i = 0; i < _numObject; i++)
@@ -122,6 +143,39 @@ namespace SOMCHAIS_Adventure
             }
 
             _spriteBatch.End();
+
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_pixel, new Rectangle(400, 0, 20, 20), Color.Red);
+            _spriteBatch.Draw(_pixel, new Rectangle(100, 0, 20, 20), Color.Green);
+            _spriteBatch.Draw(_pixel, new Rectangle(700, 0, 20, 20), Color.Pink);
+
+            _spriteBatch.Draw(_pixel, new Rectangle(100, 580, 20, 20), Color.Orange);
+
+            _spriteBatch.End();
+
+            //pause screen
+
+            // If the game is paused, draw the pause screen
+            if (isPaused)
+            {
+                _spriteBatch.Begin(blendState: BlendState.AlphaBlend);
+
+                // Draw semi-transparent overlay
+                var pauseOverlay = new Texture2D(GraphicsDevice, 1, 1);
+                pauseOverlay.SetData(new[] { new Color(0, 0, 0, 0.5f) }); // Semi-transparent black
+                _spriteBatch.Draw(pauseOverlay, new Rectangle(0, 0, 800, 600), Color.White);
+
+                // Draw pause menu options
+                // Here you would draw text like "Resume", "Options", "Quit" etc.
+                // Example:
+                string pauseText = "Game Paused\nPress [Key] to resume";
+                Vector2 pauseTextSize = _font.MeasureString(pauseText);
+                Vector2 pauseTextPosition = new Vector2(400 - pauseTextSize.X / 2, 300 - pauseTextSize.Y / 2);
+                _spriteBatch.DrawString(_font, pauseText, pauseTextPosition, Color.White);
+
+                _spriteBatch.End();
+            }
+
             _graphics.BeginDraw();
 
             base.Draw(gameTime);
@@ -148,7 +202,15 @@ namespace SOMCHAIS_Adventure
                 var clonePlat = platform.Clone() as Platform;
                 clonePlat.Position = new Vector2(0 + i*96, Singleton.SCREENHEIGHT - 100 + clonePlat.Rectangle.Height);
                 _gameObjects.Add(clonePlat);
+
+                //if(i==7)
+                //    clonePlat.Position = new Vector2(0 + i * 96, Singleton.SCREENHEIGHT - 200 + clonePlat.Rectangle.Height);
+                //_gameObjects.Add(clonePlat);
+
             }
+
+
+
 
             _gameObjects.Add(new Player(gameSprite)
             {
@@ -207,6 +269,11 @@ namespace SOMCHAIS_Adventure
             var dy = (600 / 2) - Singleton.Instance.heroY;
             //dy = MathHelper.Clamp(dy, -_map.MapSize.Y + 600 + (_map.TileSize.Y / 2), _map.TileSize.Y / 2);
             _translation = Matrix.CreateTranslation(dx, dy, 0f);
+        }
+
+        private void TogglePause()
+        {
+            isPaused = !isPaused;
         }
     }
 }
