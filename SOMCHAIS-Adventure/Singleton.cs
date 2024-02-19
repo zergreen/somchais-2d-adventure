@@ -15,6 +15,8 @@ namespace SOMCHAIS_Adventure
         public const int SCREENWIDTH = 800;
         public const int SCREENHEIGHT = 600;
 
+        public Player player = new();
+
         public enum GameState
         {
             StartNewLife,
@@ -42,7 +44,6 @@ namespace SOMCHAIS_Adventure
         }
 
         public float heroX, heroY;
-        public Player player;
 
     }
 }

@@ -108,7 +108,7 @@ namespace SOMCHAIS_Adventure
 
            
 
-            _camera.Update(new Vector2(Singleton.Instance.heroX,Singleton.Instance.heroY), 400, 400); 
+            _camera.Update(Singleton.Instance.player.Position, 400, 400); 
 
             base.Update(gameTime);
         }
@@ -143,6 +143,8 @@ namespace SOMCHAIS_Adventure
             }
 
             _spriteBatch.End();
+
+            // HUD
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(_pixel, new Rectangle(400, 0, 20, 20), Color.Red);
@@ -183,6 +185,9 @@ namespace SOMCHAIS_Adventure
 
         protected void Reset()
         {
+
+            //Singleton.Instance.player.Position.X = 0;
+
             //Reset Value to Initialize Value
             Singleton.Instance.CurrentGameState = Singleton.GameState.StartNewLife;
 
@@ -232,6 +237,9 @@ namespace SOMCHAIS_Adventure
             //Singleton.Instance.Player.Position = 
             Singleton.Instance.heroX = 400;
             Singleton.Instance.heroY = Singleton.SCREENHEIGHT - 100;
+
+            Singleton.Instance.player.Position = new Vector2(400, Singleton.SCREENHEIGHT - 100);
+
 
 
 

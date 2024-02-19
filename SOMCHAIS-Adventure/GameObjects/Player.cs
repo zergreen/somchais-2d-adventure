@@ -17,6 +17,11 @@ namespace SOMCHAIS_Adventure
         private float gravity = 10000f;
         private bool isJumping = false;
 
+        public Player() : base()
+        {
+
+        }
+
         public Player(Texture2D texture) : base(texture)
         {
 
@@ -69,15 +74,20 @@ namespace SOMCHAIS_Adventure
 
             Position = new Vector2(newX, newY);
 
-            if (Position != Vector2.Zero)
-            {
-                Singleton.Instance.heroX = Position.X;
-                Singleton.Instance.heroY = Position.Y;
+            //if (Position != Vector2.Zero)
+            //{
+            //    Singleton.Instance.player.Position = Position;
 
-            }
+            //    //Singleton.Instance.heroX = Position.X;
+            //    //Singleton.Instance.heroY = Position.Y;
+
+            //}
 
             //Singleton.Instance.heroX = Position.X;
             //Singleton.Instance.heroY = Position.Y;
+
+            Singleton.Instance.player.Position = Position;
+
 
 
             Velocity = Vector2.Zero;
