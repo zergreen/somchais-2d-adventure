@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3Na3BGiWVExnmaYYU2LcYcFfx/VJPuX4ZhGPESf4+cZturDrgZftwPABriL3o/M7V8GhBInBTx4G96V4LPQBiw==",
+  "success": true,
+  "projectFilePath": "/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/SOMCHAIS-Adventure.csproj",
+  "expectedPackageFiles": [
+    "/Users/kawhao/.nuget/packages/monogame.content.builder.task/3.8.1.303/monogame.content.builder.task.3.8.1.303.nupkg.sha512",
+    "/Users/kawhao/.nuget/packages/monogame.framework.desktopgl/3.8.1.303/monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"
+  ],
+  "logs": []
+}
