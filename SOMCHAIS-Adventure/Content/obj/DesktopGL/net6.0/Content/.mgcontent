@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/Content/GameFont.spritefont</File>
-    <File>/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/Content/sprite.png</File>
-    <File>/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/Content/tile.png</File>
+    <File>/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/Content/GameFont.spritefont</File>
+    <File>/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/Content/sprite.png</File>
+    <File>/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/Content/tile.png</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
