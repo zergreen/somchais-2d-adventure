@@ -11,10 +11,10 @@ namespace SOMCHAIS_Adventure
 {
     class Player : GameObject
     {
-        public Keys Left, Right, Fire, Up;
+        public Keys Left, Right, Fire, Up, Down;
         public Bullet bullet;
-        private float jumpVelocity = -10000f;
-        private float gravity = 10000f;
+        private float jumpVelocity = -1500;
+        private float gravity = 0f;
         private bool isJumping = false;
 
         public Player() : base()
@@ -29,13 +29,14 @@ namespace SOMCHAIS_Adventure
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            //spriteBatch.Draw(_texture, Position, Viewport, Color.White, 0f, new Vector2(0,0), new Vector2(2.0f, 2.0f), SpriteEffects.None, 0f);
             spriteBatch.Draw(_texture, Position, Viewport, Color.White);
             base.Draw(spriteBatch);
         }
 
         public override void Reset()
         {
-            Position = new Vector2(400, Singleton.SCREENHEIGHT - 100);
+            Position = new Vector2(224, 139);
             base.Reset();
         }
 
@@ -51,12 +52,22 @@ namespace SOMCHAIS_Adventure
                 Viewport = new Rectangle(0, 348, 32, 36);
                 Velocity.X = 500;
             }
-            if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && !isJumping)
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Up))
             {
                 Viewport = new Rectangle(0, 348, 32, 36);
-                Velocity.Y = jumpVelocity;
-                isJumping = true;
+                Velocity.Y = -500;
             }
+            if (Singleton.Instance.CurrentKey.IsKeyDown(Down))
+            {
+                Viewport = new Rectangle(0, 348, 32, 36);
+                Velocity.Y = 500;
+            }
+            //if (Singleton.Instance.CurrentKey.IsKeyDown(Up) && !isJumping)
+            //{
+            //    Viewport = new Rectangle(0, 348, 32, 36);
+            //    Velocity.Y = jumpVelocity;
+            //    isJumping = true;
+            //}
             if (Singleton.Instance.CurrentKey.IsKeyDown(Fire) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
             {
                 Viewport = new Rectangle(64, 348, 36, 36);
@@ -71,6 +82,7 @@ namespace SOMCHAIS_Adventure
 
             Velocity.Y += gravity * gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
             float newY = Position.Y + Velocity.Y * gameTime.ElapsedGameTime.Ticks / TimeSpan.TicksPerSecond;
+            //newY = MathHelper.Clamp(newX, 0, (Singleton.SCREENHEIGHT));
 
             Position = new Vector2(newX, newY);
 

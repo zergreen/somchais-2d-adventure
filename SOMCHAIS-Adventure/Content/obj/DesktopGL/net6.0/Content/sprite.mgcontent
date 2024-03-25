@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/Content/sprite.png</SourceFile>
-  <SourceTime>2024-02-18T22:07:16+07:00</SourceTime>
-  <DestFile>/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/Content/bin/DesktopGL/Content/sprite.xnb</DestFile>
-  <DestTime>2024-02-20T03:02:30.2654574+07:00</DestTime>
+  <SourceFile>/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/Content/sprite.png</SourceFile>
+  <SourceTime>2024-02-20T15:17:05.9454611+07:00</SourceTime>
+  <DestFile>/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/Content/bin/DesktopGL/Content/sprite.xnb</DestFile>
+  <DestTime>2024-02-20T15:19:02.8459422+07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T18:44:56+07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

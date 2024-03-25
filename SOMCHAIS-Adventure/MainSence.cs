@@ -31,6 +31,13 @@ namespace SOMCHAIS_Adventure
 
         private bool isPaused = false;
 
+        bool _isFullscreen = false;
+        bool _isBorderless = false;
+        int _width = 0;
+        int _height = 0;
+        //GraphicsDeviceManager _graphics;
+        GameWindow _window;
+
         public MainSence()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -98,7 +105,9 @@ namespace SOMCHAIS_Adventure
                 _camera.Zoom += 0.1f;
 
             if (Singleton.Instance.CurrentKey.IsKeyDown(Keys.P) && Singleton.Instance.CurrentKey != Singleton.Instance.PreviousKey)
-                TogglePause();
+                //TogglePause();
+                ToggleFullscreen();
+                //ToggleBorderless();
 
             Singleton.Instance.PreviousKey = Singleton.Instance.CurrentKey;
 
@@ -108,7 +117,8 @@ namespace SOMCHAIS_Adventure
 
            
 
-            _camera.Update(Singleton.Instance.player.Position, 400, 400); 
+            _camera.Update(Singleton.Instance.player.Position, 800, 600);
+            //_camera.Update(Singleton.Instance.player.Position, 300, 300);
 
             base.Update(gameTime);
         }
@@ -117,15 +127,21 @@ namespace SOMCHAIS_Adventure
         {
             GraphicsDevice.Clear(Color.Black);
 
-            //Texture2D tile = this.Content.Load<Texture2D>("tile");
+            Texture2D tile = this.Content.Load<Texture2D>("tile");
 
 
             //_spriteBatch.Begin();
             //_spriteBatch.Begin(transformMatrix: _translation);
 
-            //_spriteBatch.Draw(tile, new Vector2(0, 0), Color.White);
 
             _spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, _camera.Transform);
+
+            // platform
+            _spriteBatch.Draw(tile, new Vector2(-256, 0), Color.White);
+            _spriteBatch.Draw(tile, new Vector2(0, 0), Color.White);
+            _spriteBatch.Draw(tile, new Vector2(512, 0), Color.White);
+            _spriteBatch.Draw(tile, new Vector2(0, 256), Color.White);
+            _spriteBatch.Draw(tile, new Vector2(512, 256), Color.White);
 
             Rectangle platformRectangle = new Rectangle(0, 100, 100, 20);
             _spriteBatch.Draw(_pixel, platformRectangle, Color.Yellow);
@@ -148,10 +164,11 @@ namespace SOMCHAIS_Adventure
 
             _spriteBatch.Begin();
             _spriteBatch.Draw(_pixel, new Rectangle(400, 0, 20, 20), Color.Red);
-            _spriteBatch.Draw(_pixel, new Rectangle(100, 0, 20, 20), Color.Green);
-            _spriteBatch.Draw(_pixel, new Rectangle(700, 0, 20, 20), Color.Pink);
 
-            _spriteBatch.Draw(_pixel, new Rectangle(100, 580, 20, 20), Color.Orange);
+            _spriteBatch.Draw(_pixel, new Rectangle(0, 0, 20, 20), Color.Green);
+            _spriteBatch.Draw(_pixel, new Rectangle(Window.ClientBounds.Width - 20, 0, 20, 20), Color.Pink);
+
+            _spriteBatch.Draw(_pixel, new Rectangle(0, Window.ClientBounds.Height - 20, 20, 20), Color.Orange);
 
             _spriteBatch.End();
 
@@ -221,11 +238,12 @@ namespace SOMCHAIS_Adventure
             {
                 Name = "Player",
                 Viewport = new Rectangle(0, 348, 32, 36),
-                Position = new Vector2(400, Singleton.SCREENHEIGHT - 100),
+                Position = new Vector2(224, 139),
                 Left = Keys.Left,
                 Right = Keys.Right,
                 Fire = Keys.Space,
                 Up = Keys.Up,
+                Down = Keys.Down,
                 bullet = new Bullet(gameSprite)
                 {
                     Name = "PlayerBullet",
@@ -238,7 +256,7 @@ namespace SOMCHAIS_Adventure
             Singleton.Instance.heroX = 400;
             Singleton.Instance.heroY = Singleton.SCREENHEIGHT - 100;
 
-            Singleton.Instance.player.Position = new Vector2(400, Singleton.SCREENHEIGHT - 100);
+            Singleton.Instance.player.Position = new Vector2(224, 139);
 
 
 
@@ -282,6 +300,74 @@ namespace SOMCHAIS_Adventure
         private void TogglePause()
         {
             isPaused = !isPaused;
+        }
+
+        public void ToggleFullscreen()
+        {
+            bool oldIsFullscreen = _isFullscreen;
+
+            if (_isBorderless)
+            {
+                _isBorderless = false;
+            }
+            else
+            {
+                _isFullscreen = !_isFullscreen;
+            }
+
+            ApplyFullscreenChange(oldIsFullscreen);
+        }
+        public void ToggleBorderless()
+        {
+            bool oldIsFullscreen = _isFullscreen;
+
+            _isBorderless = !_isBorderless;
+            _isFullscreen = _isBorderless;
+
+            ApplyFullscreenChange(oldIsFullscreen);
+        }
+
+        private void ApplyFullscreenChange(bool oldIsFullscreen)
+        {
+            if (_isFullscreen)
+            {
+                if (oldIsFullscreen)
+                {
+                    ApplyHardwareMode();
+                }
+                else
+                {
+                    SetFullscreen();
+                }
+            }
+            else
+            {
+                UnsetFullscreen();
+            }
+        }
+        private void ApplyHardwareMode()
+        {
+            _graphics.HardwareModeSwitch = !_isBorderless;
+            _graphics.ApplyChanges();
+        }
+        private void SetFullscreen()
+        {
+            _width = Window.ClientBounds.Width;
+            _height = Window.ClientBounds.Height;
+
+            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            _graphics.HardwareModeSwitch = !_isBorderless;
+
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
+        }
+        private void UnsetFullscreen()
+        {
+            _graphics.PreferredBackBufferWidth = _width;
+            _graphics.PreferredBackBufferHeight = _height;
+            _graphics.IsFullScreen = false;
+            _graphics.ApplyChanges();
         }
     }
 }

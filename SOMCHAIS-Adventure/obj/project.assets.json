@@ -107,11 +107,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/SOMCHAIS-Adventure.csproj",
+      "projectUniqueName": "/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/SOMCHAIS-Adventure.csproj",
       "projectName": "SOMCHAIS-Adventure",
-      "projectPath": "/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/SOMCHAIS-Adventure.csproj",
+      "projectPath": "/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/SOMCHAIS-Adventure.csproj",
       "packagesPath": "/Users/kawhao/.nuget/packages/",
-      "outputPath": "/Users/kawhao/Downloads/SOMCHAIS-Adventure/SOMCHAIS-Adventure/obj/",
+      "outputPath": "/Users/kawhao/Projects/somchais-2d-adventure/SOMCHAIS-Adventure/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/kawhao/.nuget/NuGet/NuGet.Config"
